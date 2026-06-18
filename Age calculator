@@ -1,0 +1,11 @@
+from datetime import date
+def cal_age(dateofbirth):
+ today= date.today()
+ days=today.year - dateofbirth.year
+ return days
+year = int(input("Enter year : "))
+month = int(input("Enter month : "))
+day = int(input("Enter day : "))
+dateofbirth = date(year, month, day)
+age = cal_age(dateofbirth)
+print("Age =", age)
