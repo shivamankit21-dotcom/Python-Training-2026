@@ -1,0 +1,26 @@
+student = {
+    "student1" : {
+    "Name" : "Ankit",
+    "Roll" : 2420521,
+    "Marks" : 92
+},
+    "student2" : {
+    "Name" : "Sahil",
+    "Roll" : 2420522,
+    "Marks" : 93
+},
+    "student3" : {
+    "Name" : "Achyut",
+    "Roll" : 2420523,
+    "Marks" : 94
+},
+    "student4" : {
+    "Name" : "Aarav",
+    "Roll" : 2420524,
+    "Marks" : 95
+},
+
+}
+print(student)
+for i in student.values():
+  print(i)
