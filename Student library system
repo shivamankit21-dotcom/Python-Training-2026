@@ -1,0 +1,19 @@
+class Book:
+    def __init__(self, name, author):
+        self.name = name
+        self.__author = author
+
+    def __str__(self):
+        return f"{self.name} by {self.__author}"
+
+    def display_details(self):
+        print(f"Name: {self.name} | Author: {self.__author}")
+class Library(Book):
+    def __init__(self, name, author, book_id):
+        super().__init__(name, author)
+        self.book_id = book_id
+    def display_details(self):
+        print(f"Book ID: {self.book_id} | Details: {self}")
+
+lib_book = Library("Why Not Me..", "Anubhav Aggarwal", 121)
+lib_book.display_details()
