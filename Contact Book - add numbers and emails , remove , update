@@ -1,0 +1,67 @@
+contacts = {}        
+phone_numbers = set()
+
+while True:
+    print("\n1. Add  2. Search  3. Update  4. Delete  5. List  6. Exit")
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        name = input("Name: ")
+        phone = input("Phone: ")
+        email = input("Email: ")
+        
+        if name in contacts:
+            print("Name already exists!")
+        elif phone in phone_numbers:
+            print("Phone number already exists!")
+        else:
+            contacts[name] = {"phone": phone, "email": email}
+            phone_numbers.add(phone)
+            print("Added!")
+
+    elif choice == "2":
+        name = input("Name to search: ").strip()
+        if name in contacts:
+            print(f"Phone: {contacts[name]['phone']}, Email: {contacts[name]['email']}")
+        else:
+            print("Not found.")
+
+    elif choice == "3":
+        name = input("Name to update: ").strip()
+        if name in contacts:
+        
+            phone_numbers.discard(contacts[name]["phone"])
+            
+            phone = input("New Phone: ").strip()
+            if phone in phone_numbers:
+                print("That number is already taken!")
+                phone_numbers.add(contacts[name]["phone"]) 
+            else:
+                contacts[name]["phone"] = phone
+                contacts[name]["email"] = input("New Email: ").strip()
+                phone_numbers.add(phone)
+                print("Updated!")
+        else:
+            print("Not found.")
+
+    elif choice == "4":
+        name = input("Name to delete: ").strip()
+        if name in contacts:
+            phone_numbers.discard(contacts[name]["phone"])
+            del contacts[name]
+            print("Deleted!")
+        else:
+            print("Not found.")
+
+    elif choice == "5":
+        for name, info in contacts.items():
+            print(f"{name}: {info['phone']} | {info['email']}")
+     elif choice == "6":
+        print("Goodbye!")
+        break
+
+
+
+    elif choice == "6":
+        print("Goodbye!")
+        break
