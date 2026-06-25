@@ -1,0 +1,43 @@
+class electricity_bill:
+  def __init__(self,name):
+    self.name=name
+
+  def calculate_bill(self,days=30):
+
+    devices_consumption={
+        "Fan":6,
+        "light":3,
+        "fridge":6,
+        "AC":10,
+        "TV":4,
+        "Washing machine":5,
+        "Water cooler":4,
+        "Water purifier":3
+    }
+    total_units_per_day=sum(devices_consumption.values())
+    total_units=total_units_per_day*days
+
+    total_amount=0
+
+    if total_units<=300:
+      total_amount=total_units*10
+    elif total_units<=600:
+      total_amount=(300*10)+ ((total_units-300)*15)
+
+    else:
+
+      total_amount=(300*10)+(300*15)+((total_units-600)*20)
+
+
+    print(f" Electricity Bill for {self.name} ({days} Days)")
+
+
+    for device, units in devices_consumption.items():
+            print(f"{device}: {units} units/day")
+
+    print(f"Total Units Consumed:{total_units} units")
+    print(f"Total Bill Amount:Rs. {total_amount}")
+
+
+my_bill = electricity_bill("Ankit")
+my_bill.calculate_bill(days=30)
