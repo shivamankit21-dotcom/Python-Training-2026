@@ -1,0 +1,64 @@
+cart_items = []     
+item_prices = {}     
+unique_categories = set()
+
+while True:
+    print("\n1. Add Item  2. Remove Item  3. View Cart  4. Exit")
+    choice = input("Choose an option (1-4): ").strip()
+
+    if choice == "1":
+        item = input("Enter item name: ").strip().lower()
+        if not item:
+            print(" Item name cannot be empty.")
+            continue
+            
+        try:
+            price = float(input(f"Enter price for {item}: $"))
+            category = input(f"Enter category for {item}: ").strip().lower()
+            
+          
+            cart_items.append(item)
+            item_prices[item] = price
+            if category:
+                unique_categories.add(category)
+                
+            print(f" Added {item} to your cart!")
+        except ValueError:
+            print(" Invalid price. Please enter a number.")
+
+    elif choice == "2":
+        if not cart_items:
+            print(" Your cart is already empty.")
+            continue
+            
+        item = input("Enter item name to remove: ").strip().lower()
+        if item in cart_items:
+            cart_items.remove(item) 
+            del item_prices[item]    
+            print(f" Removed {item} from your cart.")
+        else:
+            print("Item not found in cart.")
+
+    elif choice == "3":
+        if not cart_items:
+            print(" Your cart is empty.")
+            continue
+            
+        print("\n--- Your Shopping Cart ---")
+       
+        for item in cart_items:
+            print(f"🛍️ {item.title()}: ${item_prices[item]:.2f}")
+            
+        print("---")
+ 
+        total_bill = sum(item_prices.values())
+        print(f" Total Bill: ${total_bill:.2f}")
+        
+    
+        print(f" Unique Categories: {', '.join(c.title() for c in unique_categories)}")
+
+    elif choice == "4":
+        print("Goodbye! Happy shopping!")
+        break
+    else:
+        print(" Invalid choice. Please enter 1, 2, 3, or 4.")
