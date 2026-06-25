@@ -1,0 +1,59 @@
+class salary_slip:
+  def __init__(self,name,position,hours_worked):
+    self.name=name
+    self.position=position
+    self.hours_worked=hours_worked
+
+  def calculate_salary(self):
+    if self.position=="Manager":
+      if self.hours_worked>8:
+        extra_hours=self.hours_worked-8
+        salary=80000+extra_hours*1000
+      else:
+        extra_hours=0
+        salary=80000
+
+
+      print(f"\n Salary Slip for {self.name} ({self.position}) ")
+      print(f"Total Hours Worked: {self.hours_worked} hrs")
+      print(f"Extra Hours Worked: {extra_hours} hrs")
+      print(f"Base Salary:        {salary - (extra_hours * 1000 if extra_hours else 0)}")
+      print(f"Overtime Pay:       {extra_hours * 1000}")
+      print(f"Total Net Salary:   {salary}")
+      return salary
+
+    elif self.position=="Developer":
+      if self.hours_worked>8:
+        extra_hours=self.hours_worked-8
+        salary=40000+extra_hours*500
+      else:
+        extra_hours=0
+        salary=40000
+
+      print(f"\n Salary Slip for {self.name} ({self.position}) ")
+      print(f"Total Hours Worked: {self.hours_worked} hrs")
+      print(f"Extra Hours Worked: {extra_hours} hrs")
+      print(f"Base Salary:        {salary - (extra_hours * 500 if extra_hours else 0)}")
+      print(f"Overtime Pay:       {extra_hours * 500}")
+      print(f"Total Net Salary:   {salary}")
+      return salary
+
+    elif self.position=="Intern":
+      if self.hours_worked>8:
+        extra_hours=self.hours_worked-8
+        salary=15000+extra_hours*150
+      else:
+        extra_hours=0
+        salary=15000
+
+      print(f"\n Salary Slip for {self.name} ({self.position}) ")
+      print(f"Total Hours Worked: {self.hours_worked} hrs")
+      print(f"Extra Hours Worked: {extra_hours} hrs")
+      print(f"Base Salary:        {salary - (extra_hours * 150 if extra_hours else 0)}")
+      print(f"Overtime Pay:       {extra_hours * 150}")
+      print(f"Total Net Salary:   {salary}")
+      return salary
+
+salary_slip("Sahil","Manager",10).calculate_salary()
+salary_slip("ankit","Developer",12).calculate_salary()
+salary_slip("Harsh","Intern",9).calculate_salary()
