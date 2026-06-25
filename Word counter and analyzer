@@ -1,0 +1,20 @@
+#(MINI PROJECT)Word Counter & Analyzer — Takes a paragraph as input, counts words, finds longest word, counts vowels using string methods and loop
+paragraph="Computer Networks play a vital role in modern communication and information sharing. A computer network is a collection of interconnected devices that can exchange data and resources efficiently. Networks are used in homes, schools, offices, banks, hospitals, and industries to enable communication and collaboration among users. The Internet is the largest example of a computer network, connecting millions of devices worldwide. Computer networks can be classified into different types such as Local Area Network (LAN), Metropolitan Area Network (MAN), and Wide Area Network (WAN). Networking devices such as routers, switches, hubs, and access points help in transmitting data between computers and other devices. Protocols like TCP/IP, HTTP, FTP, and SMTP ensure reliable communication and data transfer across networks. Security is an important aspect of computer networking, as organizations need to protect their data from unauthorized access, malware, and cyberattacks. Technologies such as firewalls, encryption, and intrusion detection systems help improve network security. With the growth of cloud computing, Internet of Things (IoT), and 5G technology, computer networks have become more powerful and efficient. As businesses and individuals increasingly rely on digital communication, the importance of computer networks continues to grow, making networking knowledge essential for students and IT professional"
+words=paragraph.split()
+word_count=len(words)
+
+
+print("Total words:",word_count)
+
+longest_word = max(words, key=len)
+print("Longest word:", longest_word)
+
+vowels = "aeiou"
+vowel_count = 0
+lower_paragraph = paragraph.lower()
+
+for char in lower_paragraph:
+    if char in vowels:
+        vowel_count += 1
+
+print("Total Vowels:", vowel_count)
