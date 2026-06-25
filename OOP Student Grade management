@@ -1,0 +1,141 @@
+import os
+
+class Person:
+    def __init__(self, name, user_id):
+        self.name = name
+        self.user_id = user_id
+
+
+
+class Student(Person):
+    def __init__(self, name, user_id):
+        super().__init__(name, user_id)
+        self.grades = {}  
+
+    def add_grade(self, course_name, grade):
+        self.grades[course_name] = grade
+
+ 
+    def __str__(self):
+     
+        grade_strings = [f"{course}:{grade}" for course, grade in self.grades.items()]
+        grades_data = ",".join(grade_strings) if grade_strings else "None"
+        return f"STUDENT|{self.user_id}|{self.name}|{grades_data}"
+
+
+
+class Teacher(Person):
+    def __init__(self, name, user_id, subject):
+        super().__init__(name, user_id)
+        self.subject = subject
+
+ 
+    def __str__(self):
+       
+        return f"TEACHER|{self.user_id}|{self.name}|{self.subject}"
+
+
+
+class GradeSystem:
+    def __init__(self, filename="records.txt"):
+        self.filename = filename
+        self.records = {} 
+        self.load_from_file()
+
+
+    def add_record(self, obj):
+        self.records[obj.user_id] = obj
+        self.save_to_file()
+        print(f" Record for {obj.name} saved successfully!")
+
+    def save_to_file(self):
+        with open(self.filename, "w", encoding="utf-8") as file:
+            for obj in self.records.values():
+             
+                file.write(str(obj) + "\n")
+
+    def load_from_file(self):
+        if not os.path.exists(self.filename):
+            return
+
+        with open(self.filename, "r", encoding="utf-8") as file:
+            for line in file:
+                parts = line.strip().split("|")
+                if not parts or len(parts) < 4:
+                    continue
+
+                role, user_id, name, extra_data = parts[0], parts[1], parts[2], parts[3]
+
+                if role == "TEACHER":
+                    self.records[user_id] = Teacher(name, user_id, extra_data)
+                elif role == "STUDENT":
+                    student = Student(name, user_id)
+                    if extra_data != "None":
+                       
+                        for item in extra_data.split(","):
+                            course, grade = item.split(":")
+                            student.add_grade(course, float(grade))
+                    self.records[user_id] = student
+
+    def view_records(self):
+        print("\n Current School Records ")
+        if not self.records:
+            print("No records found.")
+            return
+        for obj in self.records.values():
+            if isinstance(obj, Student):
+                print(f" Student: {obj.name} (ID: {obj.user_id}) | Grades: {obj.grades}")
+            elif isinstance(obj, Teacher):
+                print(f" Teacher: {obj.name} (ID: {obj.user_id}) | Subject: {obj.subject}")
+
+
+def main():
+    system = GradeSystem()
+
+    while True:
+    
+        print("1. Add Teacher")
+        print("2. Add Student Grade")
+        print("3. View All Records")
+        print("4. Exit")
+        
+        choice = input("Choose an option (1-4): ").strip()
+
+        if choice == "1":
+            name = input("Enter Teacher's Name: ").strip()
+            t_id = input("Enter Teacher's ID: ").strip()
+            subject = input("Enter Subject Taught: ").strip()
+            if name and t_id and subject:
+                system.add_record(Teacher(name, t_id, subject))
+            else:
+                print(" All fields are required.")
+
+        elif choice == "2":
+            s_id = input("Enter Student's ID: ").strip()
+            name = input("Enter Student's Name: ").strip()
+            course = input("Enter Course Name: ").strip()
+            try:
+                grade = float(input("Enter Grade: "))
+                
+                
+                if s_id in system.records and isinstance(system.records[s_id], Student):
+                    student = system.records[s_id]
+                else:
+                    student = Student(name, s_id)
+                
+                student.add_grade(course, grade)
+                system.add_record(student)
+            except ValueError:
+                print(" Invalid grade value. Must be a number.")
+
+        elif choice == "3":
+            system.view_records()
+
+        elif choice == "4":
+            print("System closed. Goodbye!")
+            break
+        else:
+            print(" Invalid selection.")
+
+if __name__ == "__main__":
+   main()
