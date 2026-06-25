@@ -1,0 +1,69 @@
+# MINI PROJECT
+# Vehicle rental system with Bike ,Car,Bus
+# bike 250 km/day=2000 if more than 250 then 5rs/km
+# car 250km/day =5000 if more than 250 then 12 rs/km
+# Bus 250km/day =7500 if more than 250 then 20rs/km
+
+class Vehicle:
+    def __init__(self, type, brand, model):
+        self.type = type.lower()
+        self.brand = brand
+        self.model = model
+
+    def calculate_bill(self, days, total_km):
+        if self.type == "bike":
+            base_rate_per_day = 2000
+            extra_rate_per_km = 5
+        elif self.type == "car":
+            base_rate_per_day = 4000
+            extra_rate_per_km = 12
+        elif self.type == "bus":
+            base_rate_per_day = 7500
+            extra_rate_per_km = 20
+        else:
+            base_rate_per_day = 2000
+            extra_rate_per_km = 0
+
+        base_rent = base_rate_per_day * days
+        allowed_km = 250 * days
+
+        if total_km > allowed_km:
+            extra_km = total_km - allowed_km
+            extra_charge = extra_km * extra_rate_per_km
+        else:
+            extra_charge = 0
+
+        total_bill = base_rent + extra_charge
+
+        print("\n" + "="*40)
+        print(f"Receipt for {self.brand} {self.model} ({self.type.upper()})")
+        print(f"Base Rate: {base_rate_per_day}/day | Extra Rate: {extra_rate_per_km}/km")
+        print(f"Days: {days} | Distance: {total_km} km (Allowed: {allowed_km} km)")
+        print(f"Base Rent Total: {base_rent}")
+        print(f"Extra Distance Charges: {extra_charge}")
+        print(f"Total Amount to Pay: {total_bill}")
+        print("="*40)
+
+        return total_bill
+
+
+
+print(" Vehicle Rental System ")
+
+
+while True:
+    v_type = input("Enter vehicle type (bike/car/bus): ").strip().lower()
+    if v_type in ["bike", "car", "bus"]:
+        break
+    print("Invalid choice! Please choose either bike, car, or bus.")
+
+v_brand = input("Enter vehicle brand (e.g., Yamaha, Toyota): ").strip()
+v_model = input("Enter vehicle model (e.g., R15, Corolla): ").strip()
+
+v_days = int(input("Enter number of rental days: "))
+v_km = int(input("Enter total kilometers driven: "))
+
+
+user_vehicle = Vehicle(type=v_type, brand=v_brand, model=v_model)
+
+user_vehicle.calculate_bill(days=v_days,total_km=v_km)
